@@ -1,0 +1,222 @@
+---
+import Icon from './Icon.astro';
+import { SITE } from '../config';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHome = path === '/';
+const isRecursos = path.startsWith('/recursos') || path.startsWith('/categoria');
+const isNoticias = path.startsWith('/noticias');
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="brand" aria-label={`${SITE.author} | ${SITE.title} — inicio`}>
+      <Icon name="shield-check" size={34} strokeWidth={2} class="brand-icon" />
+      <span class="brand-name">{SITE.author}</span>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <span class="brand-sub">{SITE.title}</span>
+    </a>
+
+    <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+      <Icon name="menu" size={22} class="i-open" />
+      <Icon name="x" size={22} class="i-close" />
+    </button>
+
+    <nav id="nav" class="nav" aria-label="Principal">
+      <a href="/" class:list={['nav-link', { active: isHome }]}>
+        <Icon name="home" size={19} /> Inicio
+      </a>
+
+      <a href="/recursos/" class:list={['nav-link', { active: isRecursos }]}>
+        <Icon name="layers" size={19} /> Recursos
+      </a>
+
+      <a href="/noticias/" class:list={['nav-link', { active: isNoticias }]}>
+        <Icon name="newspaper" size={19} /> Noticias
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(4, 10, 20, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(23, 42, 70, 0.7);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 24px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 21px;
+  }
+
+  .brand :global(.brand-icon) {
+    color: var(--accent-2);
+    filter: drop-shadow(0 0 8px rgba(43, 212, 245, 0.45));
+  }
+
+  .brand-name {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .brand-sep {
+    width: 2px;
+    height: 22px;
+    background: var(--text);
+    opacity: 0.85;
+  }
+
+  .brand-sub {
+    font-weight: 500;
+    color: var(--text-2);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 18px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 15.5px;
+    color: var(--text-2);
+    border: 1px solid transparent;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+    background: rgba(31, 139, 255, 0.08);
+  }
+
+  .nav-link.active {
+    color: #fff;
+    background: linear-gradient(180deg, #2a95ff, #1570e6);
+    border-color: rgba(120, 190, 255, 0.6);
+    box-shadow: 0 0 18px -4px rgba(31, 139, 255, 0.8);
+  }
+
+
+
+
+
+
+
+
+
+
+
+  .search-btn {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-left: 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text);
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .search-btn:hover {
+    border-color: var(--accent-2);
+    color: var(--accent-2);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    border-radius: 10px;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    cursor: pointer;
+  }
+
+  .menu-toggle :global(.i-close) {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .brand {
+      font-size: 18px;
+    }
+
+    .menu-toggle {
+      display: grid;
+    }
+
+    .nav {
+      position: absolute;
+      top: 68px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      padding: 12px 16px 20px;
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--border);
+      display: none;
+    }
+
+    .site-header.open .nav {
+      display: flex;
+    }
+
+    .site-header.open :global(.i-open) {
+      display: none;
+    }
+
+    .site-header.open :global(.i-close) {
+      display: block;
+    }
+
+
+
+    .search-btn {
+      margin: 6px 0 0;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .brand-sep,
+    .brand-sub {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector('.site-header');
+  const toggle = document.querySelector('.menu-toggle');
+  toggle?.addEventListener('click', () => {
+    const open = header?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(!!open));
+  });
+</script>

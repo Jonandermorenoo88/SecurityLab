@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<BaseLayout title="Página no encontrada">
+  <section class="container nf">
+    <code>HTTP/1.1 404 Not Found</code>
+    <h1>Aquí no hay nada que analizar</h1>
+    <p>La página que buscas no existe o se ha movido.</p>
+    <a href="/" class="btn btn-primary"><Icon name="home" size={19} /> Volver al inicio</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+    padding-top: 120px;
+  }
+
+  code {
+    font-family: var(--mono);
+    color: var(--red);
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: var(--red-soft);
+  }
+
+  h1 {
+    font-size: clamp(30px, 5vw, 44px);
+    font-weight: 800;
+  }
+
+  p {
+    color: var(--text-2);
+    margin-bottom: 10px;
+  }
+</style>

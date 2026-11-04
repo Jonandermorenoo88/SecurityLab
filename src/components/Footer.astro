@@ -1,0 +1,83 @@
+---
+import Icon from './Icon.astro';
+import { SITE } from '../config';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container inner">
+    <div class="left">
+      <a href="/" class="brand">
+        <Icon name="shield-check" size={22} strokeWidth={2} />
+        <span><strong>{SITE.author}</strong> · {SITE.title}</span>
+      </a>
+      <p>© {year} {SITE.fullName}. Contenido con fines educativos.</p>
+    </div>
+    <div class="links">
+      <a href={SITE.links.github} target="_blank" rel="noopener" aria-label="GitHub">
+        <Icon name="github" size={19} />
+      </a>
+      <a href={SITE.links.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">
+        <Icon name="linkedin" size={19} />
+      </a>
+      <a href="/rss.xml" aria-label="RSS">
+        <Icon name="rss" size={19} />
+      </a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 80px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-2);
+  }
+
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block: 28px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .brand :global(svg) {
+    color: var(--accent-2);
+  }
+
+  p {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .links {
+    display: flex;
+    gap: 10px;
+  }
+
+  .links a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--border-strong);
+    color: var(--text-2);
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .links a:hover {
+    color: var(--accent-2);
+    border-color: var(--accent-2);
+  }
+</style>

@@ -1,0 +1,255 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import ResourceCard from '../components/ResourceCard.astro';
+import { getRecursos } from '../lib/recursos';
+import { SITE } from '../config';
+
+const recursos = await getRecursos();
+const ultimos = recursos.slice(0, 3);
+
+const labs = recursos.filter((r) => r.data.type === 'laboratorio');
+const guias = recursos.filter((r) => r.data.type === 'guia');
+const plataformas = [...new Set(labs.map((r) => r.data.platform))];
+---
+
+<BaseLayout>
+  <section class="hero grid-bg">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Ciberseguridad · Análisis · Investigación</p>
+        <h1>Security <span>Lab</span></h1>
+        <p class="lead">
+          Laboratorios, guías técnicas y análisis prácticos de ciberseguridad, Blue Team, DFIR y
+          Threat Hunting.
+        </p>
+        <div class="cta">
+          <a href="/recursos/" class="btn btn-primary">
+            <Icon name="flask" size={20} /> Explorar recursos <Icon name="arrow-right" size={18} />
+          </a>
+          <a href={SITE.links.portfolio} target="_blank" rel="noopener" class="btn btn-ghost"><Icon name="user" size={20} /> Sobre mí</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <HeroVisual />
+      </div>
+    </div>
+  </section>
+
+
+  <section class="container latest">
+    <div class="latest-head">
+      <h2 class="section-title">Últimos recursos</h2>
+      <a href="/recursos/" class="see-all">Ver todos los recursos <Icon name="arrow-right" size={18} /></a>
+    </div>
+    <div class="cards">
+      {ultimos.map((entry) => <ResourceCard entry={entry} />)}
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="stats" style={`--n:${guias.length > 0 ? 4 : 3}`}>
+      <div class="stat">
+        <Icon name="flask" size={46} strokeWidth={1.5} />
+        <div><strong>{labs.length}</strong><span>Laboratorios resueltos</span></div>
+      </div>
+      {
+        guias.length > 0 && (
+          <div class="stat">
+            <Icon name="book" size={46} strokeWidth={1.5} />
+            <div><strong>{guias.length}</strong><span>Guías técnicas</span></div>
+          </div>
+        )
+      }
+      <div class="stat">
+        <Icon name="layers" size={46} strokeWidth={1.5} />
+        <div>
+          <strong>{plataformas.length}</strong>
+          <span>{plataformas.length === 1 ? 'Plataforma' : 'Plataformas'}</span>
+          <small>({plataformas.join(', ')})</small>
+        </div>
+      </div>
+      <div class="stat">
+        <Icon name="target" size={46} strokeWidth={1.5} />
+        <div><strong>{recursos.length}</strong><span>Recursos en total</span></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(23, 42, 70, 0.5);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 70% at 75% 40%, rgba(31, 139, 255, 0.12), transparent),
+      linear-gradient(180deg, transparent 70%, var(--bg));
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 40px;
+    align-items: center;
+    padding-block: 48px 40px;
+  }
+
+  h1 {
+    font-size: clamp(52px, 8vw, 84px);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    margin: 14px 0 18px;
+  }
+
+  h1 span {
+    color: var(--accent-2);
+    text-shadow: 0 0 40px rgba(43, 212, 245, 0.35);
+  }
+
+  .lead {
+    font-size: clamp(17px, 1.6vw, 21px);
+    color: var(--text-2);
+    max-width: 34ch;
+    line-height: 1.5;
+  }
+
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 32px;
+  }
+
+  .hero-visual {
+    height: 380px;
+  }
+
+
+
+
+
+
+
+  .latest {
+    margin-top: 48px;
+  }
+
+  .latest-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .see-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-2);
+    font-weight: 600;
+  }
+
+  .see-all:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(var(--n, 4), 1fr);
+    margin-top: 32px;
+    padding: 26px 10px;
+    background: linear-gradient(180deg, rgba(12, 24, 44, 0.9), rgba(8, 17, 32, 0.9));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .stat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 6px 18px;
+  }
+
+  .stat + .stat {
+    border-left: 1px solid var(--border-strong);
+  }
+
+  .stat :global(svg) {
+    color: var(--accent-2);
+    flex-shrink: 0;
+  }
+
+  .stat strong {
+    display: block;
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  .stat span {
+    color: var(--text-2);
+  }
+
+  .stat small {
+    display: block;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  @media (max-width: 1100px) {
+    .cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 24px;
+    }
+    .stat:nth-child(3) {
+      border-left: 0;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+    .hero-visual {
+      height: 340px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .cards,
+    .stats {
+      grid-template-columns: 1fr;
+    }
+    .stat {
+      justify-content: flex-start;
+    }
+    .stat + .stat {
+      border-left: 0;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+  }
+</style>

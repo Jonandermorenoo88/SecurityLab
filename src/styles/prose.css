@@ -1,0 +1,226 @@
+/* Estilos del contenido Markdown de cada laboratorio / guía */
+.prose {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text-2);
+}
+
+.prose > * + * {
+  margin-top: 1.15em;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--text);
+  scroll-margin-top: 92px;
+}
+
+.prose h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-top: 2.2em;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.prose h3 {
+  font-size: 21px;
+  font-weight: 700;
+  margin-top: 1.8em;
+}
+
+.prose h4 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-top: 1.5em;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose a {
+  color: var(--accent-2);
+  text-decoration: underline;
+  text-decoration-color: rgba(43, 212, 245, 0.4);
+  text-underline-offset: 3px;
+}
+
+.prose a:hover {
+  text-decoration-color: var(--accent-2);
+}
+
+.prose strong {
+  color: var(--text);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4em;
+}
+
+.prose li + li {
+  margin-top: 0.4em;
+}
+
+.prose li::marker {
+  color: var(--accent-2);
+}
+
+.prose hr {
+  border: 0;
+  height: 1px;
+  background: var(--border);
+  margin: 2.5em 0;
+}
+
+/* Código */
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+}
+
+.prose :not(pre) > code {
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: #9fe2f5;
+  word-break: break-word;
+}
+
+.prose pre {
+  padding: 18px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  font-size: 14.5px;
+  line-height: 1.65;
+  overflow-x: auto;
+}
+
+/* Imágenes / capturas */
+.prose img {
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  margin-inline: auto;
+}
+
+.prose p:has(> img) + p > em:only-child {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: -0.4em;
+}
+
+/* Citas → se usan como notas destacadas */
+.prose blockquote {
+  margin-inline: 0;
+  padding: 14px 18px 14px 20px;
+  border-left: 3px solid var(--accent-2);
+  border-radius: 0 10px 10px 0;
+  background: rgba(43, 212, 245, 0.06);
+  color: var(--text-2);
+}
+
+.prose blockquote > * + * {
+  margin-top: 0.6em;
+}
+
+/* Tablas */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  display: block;
+  overflow-x: auto;
+}
+
+.prose th,
+.prose td {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+.prose th {
+  background: var(--surface-2);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.prose tr:nth-child(even) td {
+  background: rgba(10, 21, 38, 0.6);
+}
+
+/* Bloques de respuesta desplegables: <details><summary>…</summary> … </details> */
+.prose details {
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.prose summary {
+  cursor: pointer;
+  padding: 11px 16px;
+  font-weight: 600;
+  color: var(--accent-2);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.prose summary::-webkit-details-marker {
+  display: none;
+}
+
+.prose summary::before {
+  content: '▸';
+  transition: transform 0.15s;
+}
+
+.prose details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.prose details[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.prose details > :not(summary) {
+  margin: 14px 16px;
+}
+
+/* Cajas de aviso: <div class="callout tip|warn|info"> … </div> */
+.prose .callout {
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+}
+
+.prose .callout.tip {
+  border-color: rgba(61, 220, 132, 0.45);
+  background: var(--green-soft);
+}
+
+.prose .callout.warn {
+  border-color: rgba(245, 184, 61, 0.45);
+  background: var(--amber-soft);
+}
+
+.prose .callout.info {
+  border-color: rgba(31, 139, 255, 0.5);
+  background: var(--accent-soft);
+}
+
+.prose .callout > :first-child {
+  margin-top: 0;
+}
+
+.prose .callout > * + * {
+  margin-top: 0.6em;
+}

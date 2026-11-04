@@ -1,0 +1,264 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import ResourceCard from '../../components/ResourceCard.astro';
+import { CATEGORIES } from '../../config';
+import { getRecursos } from '../../lib/recursos';
+
+const recursos = await getRecursos();
+const plataformas = [...new Set(recursos.filter((r) => r.data.type === 'laboratorio').map((r) => r.data.platform))];
+---
+
+<BaseLayout
+  title="Recursos"
+  description="Todos los laboratorios y guías técnicas de ciberseguridad documentados en Security Lab."
+>
+  <section class="container head">
+    <p class="eyebrow">Recursos</p>
+    <h1>Laboratorios y guías</h1>
+    <p class="sub">
+      Writeups de laboratorios de Blue Team, DFIR y Threat Hunting, y guías de las herramientas
+      que uso.
+    </p>
+  </section>
+
+  <section class="container">
+    <div class="toolbar">
+      <label class="search">
+        <Icon name="search" size={19} />
+        <span class="visually-hidden">Buscar</span>
+        <input id="q" type="search" placeholder="Buscar por título, herramienta, etiqueta…" autocomplete="off" />
+      </label>
+
+      <div class="filters">
+        <select id="f-tipo" aria-label="Tipo">
+          <option value="">Todos los tipos</option>
+          <option value="laboratorio">Laboratorios</option>
+          <option value="guia">Guías</option>
+        </select>
+        <select id="f-cat" aria-label="Categoría">
+          <option value="">Todas las categorías</option>
+          {Object.entries(CATEGORIES).map(([k, c]) => <option value={k}>{c.name}</option>)}
+        </select>
+        <select id="f-dif" aria-label="Dificultad">
+          <option value="">Cualquier dificultad</option>
+          <option>Fácil</option>
+          <option>Medio</option>
+          <option>Difícil</option>
+        </select>
+        <select id="f-plat" aria-label="Plataforma">
+          <option value="">Todas las plataformas</option>
+          {plataformas.map((p) => <option>{p}</option>)}
+        </select>
+      </div>
+    </div>
+
+    <p class="count" id="count" aria-live="polite">{recursos.length} recursos</p>
+
+    <div class="cards" id="cards">
+      {
+        recursos.map((entry) => (
+          <div
+            class="item"
+            data-tipo={entry.data.type}
+            data-cat={entry.data.category}
+            data-dif={entry.data.difficulty}
+            data-plat={entry.data.platform}
+            data-text={[
+              entry.data.title,
+              entry.data.description,
+              entry.data.topic,
+              entry.data.platform,
+              ...entry.data.tags,
+              ...entry.data.tools,
+            ]
+              .join(' ')
+              .toLowerCase()}
+          >
+            <ResourceCard entry={entry} />
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="empty" id="empty" hidden>
+      <Icon name="search" size={34} />
+      <p>No hay recursos que coincidan con la búsqueda.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .head {
+    padding-top: 56px;
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 800;
+    margin: 10px 0 12px;
+  }
+
+  .sub {
+    color: var(--text-2);
+    font-size: 18px;
+    max-width: 60ch;
+  }
+
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .search {
+    flex: 1 1 280px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 14px;
+    background: var(--bg-2);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    color: var(--muted);
+  }
+
+  .search:focus-within {
+    border-color: var(--accent-2);
+  }
+
+  .search input {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--text);
+    font: inherit;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  select {
+    height: 46px;
+    padding: 0 36px 0 14px;
+    background: var(--bg-2)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%237d8fae' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+      no-repeat right 12px center;
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  select:focus {
+    border-color: var(--accent-2);
+    outline: 0;
+  }
+
+  .count {
+    margin: 20px 2px 16px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .item {
+    display: flex;
+  }
+
+  .item > :global(*) {
+    flex: 1;
+  }
+
+  .item[hidden] {
+    display: none;
+  }
+
+  .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 60px 20px;
+    color: var(--muted);
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius);
+  }
+
+  .empty[hidden] {
+    display: none;
+  }
+
+  @media (max-width: 1100px) {
+    .cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+    .filters,
+    select {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const q = $<HTMLInputElement>('q');
+  const fTipo = $<HTMLSelectElement>('f-tipo');
+  const fCat = $<HTMLSelectElement>('f-cat');
+  const fDif = $<HTMLSelectElement>('f-dif');
+  const fPlat = $<HTMLSelectElement>('f-plat');
+  const items = [...document.querySelectorAll<HTMLElement>('.item')];
+  const count = $('count');
+  const empty = $('empty');
+
+  const params = new URLSearchParams(location.search);
+  if (params.get('tipo')) fTipo.value = params.get('tipo')!;
+  if (params.get('q')) q.value = params.get('q')!;
+  if (params.has('buscar') || params.has('q')) q.focus();
+
+  function apply() {
+    const terms = q.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    let visible = 0;
+    for (const el of items) {
+      const d = el.dataset;
+      const ok =
+        (!fTipo.value || d.tipo === fTipo.value) &&
+        (!fCat.value || d.cat === fCat.value) &&
+        (!fDif.value || d.dif === fDif.value) &&
+        (!fPlat.value || d.plat === fPlat.value) &&
+        terms.every((t) => d.text!.includes(t));
+      el.hidden = !ok;
+      if (ok) visible++;
+    }
+    count.textContent = `${visible} ${visible === 1 ? 'recurso' : 'recursos'}`;
+    empty.hidden = visible > 0;
+  }
+
+  [q, fTipo, fCat, fDif, fPlat].forEach((el) => el.addEventListener('input', apply));
+  apply();
+</script>
