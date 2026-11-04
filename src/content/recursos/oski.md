@@ -66,7 +66,7 @@ Empecé por lo más básico: buscar el hash en VirusTotal. En la pestaña **Deta
 **History** enseña varias fechas. La que me interesaba era **Creation Time**, que sale de la
 cabecera del ejecutable (el momento en que se compiló).
 
-![VirusTotal: Creation Time](/images/recursos/oski/vt-creation-time.png)
+![VirusTotal: Creation Time](/SecurityLab/images/recursos/oski/vt-creation-time.png)
 
 *VirusTotal, pestaña Details: Creation Time 2022-09-28 17:40:46 UTC.*
 
@@ -87,7 +87,7 @@ En la pestaña **Behavior** de VirusTotal están las peticiones de red que hizo 
 de los sandboxes. Hay un **POST a un .php en una IP directa**, sin dominio. Para mí, una IP sin
 nombre de dominio recibiendo datos por POST es de lo más sospechoso que se puede ver.
 
-![VirusTotal: HTTP Requests](/images/recursos/oski/vt-http-requests.png)
+![VirusTotal: HTTP Requests](/SecurityLab/images/recursos/oski/vt-http-requests.png)
 
 *VirusTotal, pestaña Behavior → HTTP Requests.*
 
@@ -106,7 +106,7 @@ ANY.RUN → panel inferior → pestaña HTTP Requests.
 En **Relations → Contacted URLs** aparecen las dos URLs a las que se conecta. Además del
 `.php`, hay un GET a `sqlite3.dll`.
 
-![VirusTotal: Contacted URLs](/images/recursos/oski/vt-contacted-urls.png)
+![VirusTotal: Contacted URLs](/SecurityLab/images/recursos/oski/vt-contacted-urls.png)
 
 *VirusTotal, pestaña Relations → Contacted URLs.*
 
@@ -128,7 +128,7 @@ Triage extrae automáticamente la configuración del malware en el apartado *Con
 malware*: el C2, la ruta del `.php` y la clave RC4 con la que descifra sus cadenas, que están en
 base64.
 
-![Recorded Future Triage: configuración del malware](/images/recursos/oski/triage-config.png)
+![Recorded Future Triage: configuración del malware](/SecurityLab/images/recursos/oski/triage-config.png)
 
 *Recorded Future Triage → Configuración de malware.*
 
@@ -152,13 +152,13 @@ etiquetado.
 La solución fue **hacer el mapeo yo mismo**. En el *Text report* de ANY.RUN, la sección
 *Behavior activities* marca como MALICIOUS "Steals credentials from Web Browsers".
 
-![ANY.RUN: Text report, Behavior activities](/images/recursos/oski/anyrun-text-report.png)
+![ANY.RUN: Text report, Behavior activities](/SecurityLab/images/recursos/oski/anyrun-text-report.png)
 
 *ANY.RUN → Results → Text report → Behavior activities.*
 
 Busqué esa frase en la web de MITRE y la descripción encajaba palabra por palabra:
 
-![MITRE ATT&CK: T1555.003](/images/recursos/oski/mitre-t1555-003.png)
+![MITRE ATT&CK: T1555.003](/SecurityLab/images/recursos/oski/mitre-t1555-003.png)
 
 *attack.mitre.org: Credentials from Password Stores: Credentials from Web Browsers (T1555.003).*
 
@@ -180,7 +180,7 @@ malware después de hacer su trabajo. En el árbol de procesos de ANY.RUN, `VPN.
 `cmd.exe`. Haciendo clic en él, el panel *Process details* muestra la línea de comandos
 completa:
 
-![ANY.RUN: Process details de cmd.exe](/images/recursos/oski/anyrun-process-details.png)
+![ANY.RUN: Process details de cmd.exe](/SecurityLab/images/recursos/oski/anyrun-process-details.png)
 
 *ANY.RUN → árbol de procesos → cmd.exe (PID 2780) → Process details.*
 
@@ -205,7 +205,7 @@ En la misma línea, `timeout /t 5` hace que espere **5 segundos** antes de borra
 así porque Windows no deja borrar un ejecutable mientras está en marcha: el malware lanza un
 `cmd` que espera a que él se cierre y luego lo elimina.
 
-![Línea de comandos con timeout /t 5](/images/recursos/oski/anyrun-timeout.png)
+![Línea de comandos con timeout /t 5](/SecurityLab/images/recursos/oski/anyrun-timeout.png)
 
 Confieso que aquí me lié. Primero respondí con tiempos en milisegundos que veía en la pestaña
 de red (29031 ms, 1703 ms). Esos números indican cuándo ocurrió algo dentro del análisis, no

@@ -2,6 +2,7 @@ import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import { SITE } from '../config';
 import { getRecursos } from '../lib/recursos';
+import { url } from '../lib/url';
 
 export async function GET(context: APIContext) {
   const recursos = await getRecursos();
@@ -13,7 +14,7 @@ export async function GET(context: APIContext) {
       title: r.data.title,
       description: r.data.description,
       pubDate: r.data.date,
-      link: `/recursos/${r.id}/`,
+      link: url(`/recursos/${r.id}/`),
       categories: [r.data.category, ...r.data.tags],
     })),
     customData: '<language>es-es</language>',

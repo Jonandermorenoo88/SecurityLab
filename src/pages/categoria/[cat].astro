@@ -1,4 +1,5 @@
 ---
+import { url } from '../../lib/url';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
 import ResourceCard from '../../components/ResourceCard.astro';
@@ -34,7 +35,7 @@ const recursos = (await getRecursos()).filter((r) => r.data.category === key);
         <div class="empty">
           <Icon name={cat.icon} size={34} />
           <p>Todavía no hay recursos en esta categoría. ¡Pronto!</p>
-          <a href="/recursos/" class="btn btn-ghost">Ver todos los recursos</a>
+          <a href={url('/recursos/')} class="btn btn-ghost">Ver todos los recursos</a>
         </div>
       )
     }

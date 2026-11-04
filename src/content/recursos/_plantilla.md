@@ -40,7 +40,7 @@ Cómo llegué a la respuesta: filtro, captura, razonamiento…
 # comandos o filtros que usaste
 ```
 
-![Descripción de la captura](/images/recursos/mi-laboratorio/q1.png)
+![Descripción de la captura](/SecurityLab/images/recursos/mi-laboratorio/q1.png)
 
 <details>
 <summary>Ver respuesta</summary>

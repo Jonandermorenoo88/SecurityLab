@@ -1,8 +1,9 @@
 ---
+import { url, stripBase } from '../lib/url';
 import Icon from './Icon.astro';
 import { SITE } from '../config';
 
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const path = stripBase(Astro.url.pathname).replace(/\/$/, '') || '/';
 const isHome = path === '/';
 const isRecursos = path.startsWith('/recursos') || path.startsWith('/categoria');
 const isNoticias = path.startsWith('/noticias');
@@ -10,7 +11,7 @@ const isNoticias = path.startsWith('/noticias');
 
 <header class="site-header">
   <div class="container bar">
-    <a href="/" class="brand" aria-label={`${SITE.author} | ${SITE.title} — inicio`}>
+    <a href={url('/')} class="brand" aria-label={`${SITE.author} | ${SITE.title} — inicio`}>
       <Icon name="shield-check" size={34} strokeWidth={2} class="brand-icon" />
       <span class="brand-name">{SITE.author}</span>
       <span class="brand-sep" aria-hidden="true"></span>
@@ -23,15 +24,15 @@ const isNoticias = path.startsWith('/noticias');
     </button>
 
     <nav id="nav" class="nav" aria-label="Principal">
-      <a href="/" class:list={['nav-link', { active: isHome }]}>
+      <a href={url('/')} class:list={['nav-link', { active: isHome }]}>
         <Icon name="home" size={19} /> Inicio
       </a>
 
-      <a href="/recursos/" class:list={['nav-link', { active: isRecursos }]}>
+      <a href={url('/recursos/')} class:list={['nav-link', { active: isRecursos }]}>
         <Icon name="layers" size={19} /> Recursos
       </a>
 
-      <a href="/noticias/" class:list={['nav-link', { active: isNoticias }]}>
+      <a href={url('/noticias/')} class:list={['nav-link', { active: isNoticias }]}>
         <Icon name="newspaper" size={19} /> Noticias
       </a>
     </nav>

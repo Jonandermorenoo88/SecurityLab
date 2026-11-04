@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import HeroVisual from '../components/HeroVisual.astro';
@@ -25,7 +26,7 @@ const plataformas = [...new Set(labs.map((r) => r.data.platform))];
           Threat Hunting.
         </p>
         <div class="cta">
-          <a href="/recursos/" class="btn btn-primary">
+          <a href={url('/recursos/')} class="btn btn-primary">
             <Icon name="flask" size={20} /> Explorar recursos <Icon name="arrow-right" size={18} />
           </a>
           <a href={SITE.links.portfolio} target="_blank" rel="noopener" class="btn btn-ghost"><Icon name="user" size={20} /> Sobre mí</a>
@@ -41,7 +42,7 @@ const plataformas = [...new Set(labs.map((r) => r.data.platform))];
   <section class="container latest">
     <div class="latest-head">
       <h2 class="section-title">Últimos recursos</h2>
-      <a href="/recursos/" class="see-all">Ver todos los recursos <Icon name="arrow-right" size={18} /></a>
+      <a href={url('/recursos/')} class="see-all">Ver todos los recursos <Icon name="arrow-right" size={18} /></a>
     </div>
     <div class="cards">
       {ultimos.map((entry) => <ResourceCard entry={entry} />)}

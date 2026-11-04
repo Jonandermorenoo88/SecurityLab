@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import Icon from './Icon.astro';
 import { CATEGORIES } from '../config';
 import { formatDate, TYPE_ICON, TYPE_LABEL, type Recurso } from '../lib/recursos';
@@ -33,7 +34,7 @@ const bars = Array.from({ length: 28 }, (_, i) => {
 });
 ---
 
-<a href={`/recursos/${entry.id}/`} class="card" data-category={d.category}>
+<a href={url(`/recursos/${entry.id}/`)} class="card" data-category={d.category}>
   <div class="art">
     <div class="art-grid"></div>
     <svg class="wave" viewBox="0 0 168 60" preserveAspectRatio="none" aria-hidden="true">

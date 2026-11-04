@@ -34,7 +34,7 @@ que contestar rápido "¿qué es esto y qué hago?".
 
 Lo único que había dentro del ZIP del laboratorio era un `hash.txt` con esto:
 
-![Contenido de hash.txt](/images/recursos/yellow-rat/hash-txt.png)
+![Contenido de hash.txt](/SecurityLab/images/recursos/yellow-rat/hash-txt.png)
 
 *hash.txt: el SHA256 de la muestra y la sugerencia de usar VirusTotal o Hybrid Analysis.*
 
@@ -66,7 +66,7 @@ lo marcaban como malicioso. Además, la cabecera da varios datos útiles de un v
 **DLL de 68 KB**, las etiquetas `assembly` indican que está hecha en **.NET** y aparece con un
 nombre de archivo con formato de identificador único (GUID).
 
-![VirusTotal: detecciones, nombre de archivo y etiquetas](/images/recursos/yellow-rat/vt-cabecera.png)
+![VirusTotal: detecciones, nombre de archivo y etiquetas](/SecurityLab/images/recursos/yellow-rat/vt-cabecera.png)
 
 *VirusTotal: 54/71 detecciones, nombre de archivo y etiquetas de la muestra.*
 
@@ -91,7 +91,7 @@ La pista buena la encontré en la sección **Contained in Graphs** de VirusTotal
 investigación que otros analistas han creado con este hash. Uno de ellos se titulaba
 "Yellow Cockatoo RAT".
 
-![VirusTotal: Contained in Graphs](/images/recursos/yellow-rat/vt-grafos.png)
+![VirusTotal: Contained in Graphs](/SecurityLab/images/recursos/yellow-rat/vt-grafos.png)
 
 *VirusTotal → Contained in Graphs: uno de los grafos se titula "Yellow Cockatoo RAT".*
 
@@ -111,7 +111,7 @@ Blog de Red Canary sobre Yellow Cockatoo (confirmación).
 En la pestaña **Details**, el bloque **History** muestra varias fechas. La de compilación es
 **Creation Time**, que se lee de la cabecera del ejecutable:
 
-![VirusTotal: Creation Time](/images/recursos/yellow-rat/vt-creation-time.png)
+![VirusTotal: Creation Time](/SecurityLab/images/recursos/yellow-rat/vt-creation-time.png)
 
 *VirusTotal → Details → History → Creation Time: 2020-09-24 18:26:47 UTC.*
 
@@ -129,7 +129,7 @@ una pista y no como una prueba.
 En el mismo bloque, **First Submission** indica cuándo lo subió alguien a VirusTotal por
 primera vez:
 
-![VirusTotal: First Submission](/images/recursos/yellow-rat/vt-first-submission.png)
+![VirusTotal: First Submission](/SecurityLab/images/recursos/yellow-rat/vt-first-submission.png)
 
 *VirusTotal → Details → History → First Submission: 2020-10-15 02:47:37 UTC.*
 
@@ -156,7 +156,7 @@ comporta del todo si pasa cierto tiempo o si consigue hablar con su servidor. Cu
 toca ir a la inteligencia de un proveedor. En el análisis técnico de Red Canary describen paso a
 paso lo que hace al ejecutarse:
 
-![Red Canary: solarmarker.dat](/images/recursos/yellow-rat/redcanary-solarmarker-dat.png)
+![Red Canary: solarmarker.dat](/SecurityLab/images/recursos/yellow-rat/redcanary-solarmarker-dat.png)
 
 *Blog de Red Canary (traducido): el malware guarda un identificador único del equipo en solarmarker.dat.*
 
@@ -176,7 +176,7 @@ Blog de Red Canary → descripción de la ejecución → punto 2.
 En el siguiente paso del mismo artículo explican que el malware se conecta a su C2 enviando
 información del equipo y recibiendo su primera orden:
 
-![Red Canary: conexión al C2](/images/recursos/yellow-rat/redcanary-c2.png)
+![Red Canary: conexión al C2](/SecurityLab/images/recursos/yellow-rat/redcanary-c2.png)
 
 *Blog de Red Canary: conexión al C2 gogohid[.]com.*
 

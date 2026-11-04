@@ -1,4 +1,5 @@
 ---
+import { url } from '../../lib/url';
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
@@ -33,9 +34,9 @@ const diffClass = { Fácil: 'badge-easy', Medio: 'badge-medium', Difícil: 'badg
     <header class="post-head grid-bg">
       <div class="container">
         <nav class="crumbs" aria-label="Ruta">
-          <a href="/recursos/">Recursos</a>
+          <a href={url('/recursos/')}>Recursos</a>
           <span>/</span>
-          <a href={`/categoria/${d.category}/`}>{cat.name}</a>
+          <a href={url(`/categoria/${d.category}/`)}>{cat.name}</a>
         </nav>
 
         <div class="badges">
@@ -68,7 +69,7 @@ const diffClass = { Fácil: 'badge-easy', Medio: 'badge-medium', Difícil: 'badg
           <h2>Ficha</h2>
           <dl>
             <dt>Tipo</dt><dd>{TYPE_LABEL[d.type]}</dd>
-            <dt>Categoría</dt><dd><a href={`/categoria/${d.category}/`}>{cat.name}</a></dd>
+            <dt>Categoría</dt><dd><a href={url(`/categoria/${d.category}/`)}>{cat.name}</a></dd>
             {d.type === 'laboratorio' && (<><dt>Plataforma</dt><dd>{d.platform}</dd></>)}
             <dt>Dificultad</dt><dd>{d.difficulty}</dd>
           </dl>
@@ -84,7 +85,7 @@ const diffClass = { Fácil: 'badge-easy', Medio: 'badge-medium', Difícil: 'badg
             d.tags.length > 0 && (
               <>
                 <h3><Icon name="tag" size={15} /> Etiquetas</h3>
-                <ul class="chips">{d.tags.map((t) => <li><a href={`/recursos/?q=${encodeURIComponent(t)}`}>#{t}</a></li>)}</ul>
+                <ul class="chips">{d.tags.map((t) => <li><a href={url(`/recursos/?q=${encodeURIComponent(t)}`)}>#{t}</a></li>)}</ul>
               </>
             )
           }
@@ -117,7 +118,7 @@ const diffClass = { Fácil: 'badge-easy', Medio: 'badge-medium', Difícil: 'badg
     <nav class="container pager" aria-label="Más recursos">
       {
         older ? (
-          <a href={`/recursos/${older.id}/`} class="pg">
+          <a href={url(`/recursos/${older.id}/`)} class="pg">
             <span><Icon name="arrow-left" size={16} /> Anterior</span>
             <strong>{older.data.title}</strong>
           </a>
@@ -125,7 +126,7 @@ const diffClass = { Fácil: 'badge-easy', Medio: 'badge-medium', Difícil: 'badg
       }
       {
         newer && (
-          <a href={`/recursos/${newer.id}/`} class="pg next">
+          <a href={url(`/recursos/${newer.id}/`)} class="pg next">
             <span>Siguiente <Icon name="arrow-right" size={16} /></span>
             <strong>{newer.data.title}</strong>
           </a>

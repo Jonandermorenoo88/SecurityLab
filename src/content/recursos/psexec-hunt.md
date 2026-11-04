@@ -79,7 +79,7 @@ laboratorio. Lo primero fue extraer la captura del archivo protegido y abrirla e
 wireshark psexec-hunt.pcapng &
 ```
 
-![Primer vistazo a la captura](/images/recursos/psexec-hunt/primer-vistazo.png)
+![Primer vistazo a la captura](/SecurityLab/images/recursos/psexec-hunt/primer-vistazo.png)
 
 *Primer vistazo a la captura: 10.0.0.130 negocia SMB con 10.0.0.133 y se autentica.*
 
@@ -95,7 +95,7 @@ porque es el que envía la víctima e incluye su nombre de host:
 ip.src == 10.0.0.133 && ntlmssp.messagetype == 0x00000002
 ```
 
-![NTLM Challenge: SALES-PC](/images/recursos/psexec-hunt/ntlm-challenge-sales-pc.png)
+![NTLM Challenge: SALES-PC](/SecurityLab/images/recursos/psexec-hunt/ntlm-challenge-sales-pc.png)
 
 *Paquete 131: Target Name = SALES-PC. El nombre se confirma también en el panel hexadecimal.*
 
@@ -108,7 +108,7 @@ Wireshark lo muestra en la propia columna Info:
 ip.src == 10.0.0.130 && ntlmssp.messagetype == 0x00000003
 ```
 
-![NTLM Auth con la cuenta ssales](/images/recursos/psexec-hunt/ntlm-auth-ssales.png)
+![NTLM Auth con la cuenta ssales](/SecurityLab/images/recursos/psexec-hunt/ntlm-auth-ssales.png)
 
 *Paquete 132: autenticación con la cuenta ssales, sin dominio.*
 
@@ -121,7 +121,7 @@ las peticiones *Write* que suben el binario por bloques de 64 KB:
 smb2.filename contains "PSEXESVC"
 ```
 
-![Create y Write de PSEXESVC.exe](/images/recursos/psexec-hunt/psexesvc-create-write.png)
+![Create y Write de PSEXESVC.exe](/SecurityLab/images/recursos/psexec-hunt/psexesvc-create-write.png)
 
 *Paquetes 144-238: Create Request y Write Request de PSEXESVC.exe.*
 
@@ -135,7 +135,7 @@ ejecutable.
 ip.addr == 10.0.0.130 && smb2.cmd == 3
 ```
 
-![Tree Connect a ADMIN$ e IPC$](/images/recursos/psexec-hunt/tree-connect.png)
+![Tree Connect a ADMIN$ e IPC$](/SecurityLab/images/recursos/psexec-hunt/tree-connect.png)
 
 *Tree Connect a ADMIN$ en 10.0.0.133 y, más abajo, el mismo patrón contra 10.0.0.131.*
 
@@ -148,7 +148,7 @@ vez con origen `10.0.0.131`, obtuve el nombre del segundo equipo comprometido:
 ip.src == 10.0.0.131 && ntlmssp.messagetype == 0x00000002
 ```
 
-![NTLM Challenge: MARKETING-PC](/images/recursos/psexec-hunt/ntlm-challenge-marketing-pc.png)
+![NTLM Challenge: MARKETING-PC](/SecurityLab/images/recursos/psexec-hunt/ntlm-challenge-marketing-pc.png)
 
 *Paquete 38514: Target Name = MARKETING-PC.*
 

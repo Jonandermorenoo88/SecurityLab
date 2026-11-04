@@ -61,7 +61,7 @@ Primero descomprimí la evidencia, que traía casi 3.300 archivos de un teléfon
 7z x 138-The-Crime.zip
 ```
 
-![Extracción del laboratorio](/images/recursos/the-crime/extraccion.jpg)
+![Extracción del laboratorio](/SecurityLab/images/recursos/the-crime/extraccion.jpg)
 
 *Extracción del laboratorio: 1.781 carpetas y 3.286 archivos.*
 
@@ -85,14 +85,14 @@ mkdir -p ~/Desktop/Labs/Lab14/informe
 python3 aleapp.py -t fs -i .../temp_extract_dir/data/ -o .../informe
 ```
 
-![ALEAPP procesando la extracción](/images/recursos/the-crime/aleapp-procesando.png)
+![ALEAPP procesando la extracción](/SecurityLab/images/recursos/the-crime/aleapp-procesando.png)
 
 *ALEAPP procesando la extracción.*
 
 El resultado es un `index.html` navegable y, lo que más usé, la carpeta **_TSV Exports**: todos
 los artefactos en texto plano, perfectos para buscar con `grep` y abrir con LibreOffice.
 
-![Salida de ALEAPP](/images/recursos/the-crime/aleapp-salida.png)
+![Salida de ALEAPP](/SecurityLab/images/recursos/the-crime/aleapp-salida.png)
 
 *Salida de ALEAPP: informe HTML, exportaciones TSV, línea de tiempo y la carpeta media.*
 
@@ -111,7 +111,7 @@ laboratorio daba el paquete de la app, así que lo busqué en todo el informe:
 grep -ril "olymptrade" .
 ```
 
-![grep olymptrade](/images/recursos/the-crime/grep-olymptrade.jpg)
+![grep olymptrade](/SecurityLab/images/recursos/the-crime/grep-olymptrade.jpg)
 
 *La app aparece en 14 informes distintos.*
 
@@ -119,7 +119,7 @@ Salía en 14 archivos, pero solo uno tenía un hash: `installedappsGass.tsv`. Vi
 de datos de Google Play Services que registra cada app instalada con su versión y su SHA-256,
 que es lo que pedía la pregunta.
 
-![installedappsGass.tsv](/images/recursos/the-crime/installedappsgass.png)
+![installedappsGass.tsv](/SecurityLab/images/recursos/the-crime/installedappsgass.png)
 
 *installedappsGass.tsv: Olymp Trade con su hash SHA-256.*
 
@@ -146,7 +146,7 @@ Un amigo contó que la víctima evitaba unas llamadas porque debía mucho dinero
 grep -ril "money" .
 ```
 
-![grep money](/images/recursos/the-crime/grep-money.png)
+![grep money](/SecurityLab/images/recursos/the-crime/grep-money.png)
 
 En los SMS estaba el mensaje. Lo copio entero porque cambia el tono del caso:
 
@@ -170,7 +170,7 @@ libra egipcia) fue mi primera pista de que todo pasaba en Egipto.
 El mismo mensaje aparecía en `GoogleMessages.tsv`, pero con más contexto: remitente, número y
 hora exacta.
 
-![GoogleMessages.tsv](/images/recursos/the-crime/googlemessages.png)
+![GoogleMessages.tsv](/SecurityLab/images/recursos/the-crime/googlemessages.png)
 
 *GoogleMessages.tsv: el mensaje lo envía Shady Wahab.*
 
@@ -199,13 +199,13 @@ lugar en un móvil, no buscar la palabra literal**.
 Probé con "maps" y apareció `Recent Activity.tsv`. Android guarda una captura de pantalla de
 cada app que queda en la vista de recientes, y había una de Google Maps:
 
-![Recent Activity.tsv](/images/recursos/the-crime/recent-activity.jpg)
+![Recent Activity.tsv](/SecurityLab/images/recursos/the-crime/recent-activity.jpg)
 
 *Recent Activity: Google Maps en segundo plano el 20/09/2023 a las 23:50 UTC, con dos imágenes asociadas.*
 
 Abrí la imagen de la carpeta `media` del informe y ahí estaba el punto azul:
 
-![Captura de Google Maps](/images/recursos/the-crime/maps-ritz-carlton.jpg)
+![Captura de Google Maps](/SecurityLab/images/recursos/the-crime/maps-ritz-carlton.jpg)
 
 *Captura de Google Maps recuperada del teléfono: la víctima está en The Nile Ritz-Carlton, El Cairo.*
 
@@ -225,7 +225,7 @@ Carpeta `media/` del informe → `a3f43472d6f21bc2b5633473ad3946c19652833a.jpg`.
 La recepcionista del hotel declaró que había reservado 10 días y que tenía un vuelo después.
 Entre las imágenes del teléfono había una tarjeta de embarque:
 
-![Plane Ticket.png](/images/recursos/the-crime/plane-ticket.jpg)
+![Plane Ticket.png](/SecurityLab/images/recursos/the-crime/plane-ticket.jpg)
 
 *Plane Ticket.png, guardada en el teléfono.*
 
@@ -251,7 +251,7 @@ La última pieza estaba en la caché de Discord. La víctima (usuario `infern0_o
 amigo (`rob1ns0n`) que ha cambiado de planes y ha reservado el vuelo del 01/10 a las 9:00. La
 respuesta:
 
-![Discord - Cached Messages](/images/recursos/the-crime/discord-cached.png)
+![Discord - Cached Messages](/SecurityLab/images/recursos/the-crime/discord-cached.png)
 
 *Discord - Cached Messages: la cita en The Mob Museum.*
 

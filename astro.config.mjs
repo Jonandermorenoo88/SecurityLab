@@ -2,10 +2,14 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Cambia `site` por tu dominio real cuando publiques el blog
-// (por ejemplo https://securitylab.netlify.app). Lo usan el sitemap y el RSS.
+// Publicado en GitHub Pages: https://jonandermorenoo88.github.io/SecurityLab/
+// Si algún día usas un dominio propio, pon aquí ese dominio en `site` y quita `base`.
+// Las imágenes de los .md llevan esta ruta delante: ![captura](/SecurityLab/images/...)
+const BASE = '/SecurityLab';
+
 export default defineConfig({
-  site: 'https://securitylab.example.com',
+  site: 'https://jonandermorenoo88.github.io',
+  base: BASE,
   integrations: [sitemap()],
   markdown: {
     shikiConfig: {

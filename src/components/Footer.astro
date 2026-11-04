@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import Icon from './Icon.astro';
 import { SITE } from '../config';
 const year = new Date().getFullYear();
@@ -7,7 +8,7 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container inner">
     <div class="left">
-      <a href="/" class="brand">
+      <a href={url('/')} class="brand">
         <Icon name="shield-check" size={22} strokeWidth={2} />
         <span><strong>{SITE.author}</strong> · {SITE.title}</span>
       </a>
@@ -20,7 +21,7 @@ const year = new Date().getFullYear();
       <a href={SITE.links.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">
         <Icon name="linkedin" size={19} />
       </a>
-      <a href="/rss.xml" aria-label="RSS">
+      <a href={url('/rss.xml')} aria-label="RSS">
         <Icon name="rss" size={19} />
       </a>
     </div>
